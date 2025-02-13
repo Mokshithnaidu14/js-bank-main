@@ -3,14 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bank</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Bank Form</title>
 </head>
 <body>
-    <h1 class="header">My Bank</h1>
-    <hr />
-    <script src="index.js"></script>
-    <hr />
-    <p>@Copyright 2025. All rights reserved.</p>
+
+    <h1><em>Bank Form</em></h1>
+    <div id="form-container"></div>
+
+    <script>
+        let arr_user = [];
+
+        function check_user() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            
+            for (let i = 0; i < arr_user.length; i++) {
+                if (arr_user[i].username === username && arr_user[i].password === password) {
+                    alert("Login success");
+                    return; // Stop checking once a valid user is found
+                }
+            }
+            alert("Login failed");
+        }
+
+        function registration() {
+            let str = `
+                <h2>Registration</h2>
+                <input type="text" id="username" placeholder="Username"><br> 
+                <input type="password" id="password" placeholder="Password"><br>
+                <input type="text" id="name" placeholder="Full Name"><br>
+                <input type="text" id="email" placeholder="Email"><br>
+                <input type="text" id="phone" placeholder="Phone"><br>
+                <button onclick="register()">Register</button>
+                <button onclick="login()">Go to Login</button>
+            `;
+            document.getElementById("form-container").innerHTML = str;
+        }
+
+        function register() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username === "" || password === "") {
+                alert("Username and password cannot be empty.");
+                return;
+            }
+
+            let userObject = {
+                username: username,
+                password: password
+            };
+            arr_user.push(userObject);
+            alert("Registration successful!");
+            login(); // Redirect to login page after registration
+        }
+
+        function login() {
+            let str = `
+                <h2>Login</h2>
+                <input type="text" id="username" placeholder="Username"><br> 
+                <input type="password" id="password" placeholder="Password"><br>
+                <button onclick="check_user()">Login</button>
+                <button onclick="registration()">Register</button>
+            `;
+            document.getElementById("form-container").innerHTML = str;
+        }
+
+        // Load login form by default
+        login();
+    </script>
+
 </body>
 </html>
